@@ -9,9 +9,10 @@ Here is a glimpse of the website in action:
 ![personal-library-demo](https://github.com/ndy-s/personal-library/blob/main/assets/demo.gif)
 
 ## Installation and Setup
-Clone the repository:
+Clone the repository and go into the project directory:
 ```bash
 git clone https://github.com/ndy-s/personal-library.git
+cd personal-library
 ````
 
 Install dependencies:
