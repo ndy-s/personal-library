@@ -6,6 +6,7 @@ use App\Models\ArtLibrary;
 use App\Models\SubArtLibrary;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Intervention\Image\Facades\Image;
 
 class ArtLibraryManagementController extends Controller {
     public function index() {
@@ -58,55 +59,54 @@ class ArtLibraryManagementController extends Controller {
             ]);
 
             $nullableFields = [
-                'id',
-                'title_jp',
-                'original',
-                'series',
-                'author',
-                'studio',
-                'year',
-                'page',
-                'lang',
-                'source',
-                'desc',
-                'link',
-                'path',
+                'id','title_jp','original','series','author','studio',
+                'year','page','lang','source','desc','link','path',
             ];
 
             foreach($nullableFields as $field) {
                 if (!is_null($request->input($field))) {
-                    $attributes = array_merge($attributes, [$field => $request->input($field)]);
-                } else if (is_null($request->input($field)) && $field == 'page') {
-                    $attributes = array_merge($attributes, [$field => 0]);
-                } else if (is_null($request->input($field)) && $request->has('id')) {
-                    $attributes = array_merge($attributes, [$field => 'N/A']);
+                    $attributes[$field] = $request->input($field);
+                } else if ($field === 'page') {
+                    $attributes[$field] = 0;
+                } else if ($request->has('id')) {
+                    $attributes[$field] = 'N/A';
                 }
             }
 
             $pathInput = $request->input('path');
-            if (is_null($pathInput) || $pathInput === 'N/A') {
+            if (empty($pathInput) || $pathInput === 'N/A') {
                 $type = $request->input('type', 'N/A');
                 $title_en = $request->input('title_en');
-                $defaultPath = "D:\\Art & Animation\\Art & Animation Library\\$type\\$title_en";
-                $attributes['path'] = $defaultPath;
+                $attributes['path'] = "D:\\Art & Animation\\Art & Animation Library\\$type\\$title_en";
             } else {
                 $attributes['path'] = $pathInput;
             }
 
-            if ($request->file('image_path')) {
+            if ($request->hasFile('image_path')) {
+
                 $request->validate([
-                    'image_path' => 'image|max:2048',
+                    'image_path' => 'image|max:4096'
                 ]);
 
                 $image = $request->file('image_path');
-                $extension = strtolower($image->getClientOriginalExtension());
-                $image_name = md5(uniqid($image->getClientOriginalName(), true) . time()) . '.' . $extension;
+
+                $image_name = md5(uniqid() . time()) . '.webp';
+
+                $img = Image::make($image->getRealPath());
+
+                $img->encode('webp', 80);
+
+                $img->save(public_path('img/library/' . $image_name));
+
                 $attributes['image_path'] = $image_name;
-                $image->move('./img/library', $image_name);
+
                 return $attributes;
-            } else if ($request->image_path) {
-                return array_merge($attributes, ['image_path' => $request->input('image_path')]);
             }
+
+            if ($request->image_path) {
+                $attributes['image_path'] = $request->image_path;
+            }
+
             return $attributes;
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

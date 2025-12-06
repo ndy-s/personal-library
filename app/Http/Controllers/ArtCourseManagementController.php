@@ -6,6 +6,7 @@ use App\Models\ArtCourse;
 use App\Models\SubArtCourse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Intervention\Image\Facades\Image;
 
 class ArtCourseManagementController extends Controller
 {
@@ -53,26 +54,17 @@ class ArtCourseManagementController extends Controller
             ]);
 
             $nullableFields = [
-                'id',
-                'original',
-                'publisher',
-                'author',
-                'year',
-                'video',
-                'lang',
-                'source',
-                'desc',
-                'link',
-                'path',
+                'id', 'original', 'publisher', 'author', 'year',
+                'video', 'lang', 'source', 'desc', 'link', 'path',
             ];
 
-            foreach($nullableFields as $field) {
+            foreach ($nullableFields as $field) {
                 if (!is_null($request->input($field))) {
-                    $attributes = array_merge($attributes, [$field => $request->input($field)]);
-                } else if (is_null($request->input($field)) && $field == 'video') {
-                    $attributes = array_merge($attributes, [$field => 0]);
-                } else if (is_null($request->input($field)) && $request->has('id')) {
-                    $attributes = array_merge($attributes, [$field => 'N/A']);
+                    $attributes[$field] = $request->input($field);
+                } elseif ($field === 'video') {
+                    $attributes[$field] = 0;
+                } elseif ($request->has('id')) {
+                    $attributes[$field] = 'N/A';
                 }
             }
 
@@ -80,27 +72,32 @@ class ArtCourseManagementController extends Controller
             if (is_null($pathInput) || $pathInput === 'N/A') {
                 $publisher = $request->input('publisher', 'N/A');
                 $title_en = $request->input('title_en');
-                $defaultPath = "D:\\Art & Animation\\Art & Animation Tutorial Courses\\$publisher\\$title_en";
-                $attributes['path'] = $defaultPath;
+                $attributes['path'] = "D:\\Art & Animation\\Art & Animation Tutorial Courses\\$publisher\\$title_en";
             } else {
                 $attributes['path'] = $pathInput;
             }
 
-            if ($request->file('image_path')) {
+            if ($request->hasFile('image_path')) {
                 $request->validate([
-                    'image_path' => 'image|max:2048',
+                    'image_path' => 'image|max:4096',
                 ]);
 
                 $image = $request->file('image_path');
-                $extension = strtolower($image->getClientOriginalExtension());
-                $image_name = md5(uniqid($image->getClientOriginalName(), true) . time()) . '.' . $extension;
+                $image_name = md5(uniqid() . time()) . '.webp';
+
+                $img = Image::make($image->getRealPath());
+
+                $img->encode('webp', 80);
+
+                $img->save(public_path('img/course/' . $image_name));
+
                 $attributes['image_path'] = $image_name;
-                $image->move('./img/course', $image_name);
-                return $attributes;
-            } else if ($request->image_path) {
-                return array_merge($attributes, ['image_path' => $request->input('image_path')]);
+            } elseif ($request->image_path) {
+                $attributes['image_path'] = $request->image_path;
             }
+
             return $attributes;
+
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
