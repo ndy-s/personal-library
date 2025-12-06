@@ -3,7 +3,7 @@ import {createInertiaApp, Head, Link} from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 createInertiaApp({
-    title: title => `NdyApp - Personal Website`,
+    title: title => `Personal Library`,
     resolve: name => {
         const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
         return pages[`./Pages/${name}.vue`]

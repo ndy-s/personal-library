@@ -4,8 +4,10 @@
             <div class="container mx-auto px-4">
                 <div class="flex justify-around items-center">
                     <Link href="/" class="flex flex-col items-center">
-                        <h1 class="text-3xl font-bold text-gradient bg-gradient-to-r from-green-200 to-green-400 bg-clip-text text-transparent">NdyApp</h1>
-                        <small class="text-green-400">Ndy's Personal Website</small>
+                        <h1 class="text-3xl font-bold text-gradient bg-gradient-to-r from-green-200 to-green-400 bg-clip-text text-transparent">
+                            Personal Library
+                        </h1>
+                        <small class="text-green-400">Manage your digital tutorials, guides, and books</small>
                     </Link>
 
                     <div v-if="ArtLibrary" class="flex ml-12 w-[70%] border border-green-400">
