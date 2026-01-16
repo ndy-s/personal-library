@@ -1,7 +1,7 @@
 <template>
     <div v-show="createMode" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-        <div class="modal-container bg-gray-800 w-11/12 mx-auto rounded shadow-lg z-50 overflow-y-auto border border-green-300">
+        <div class="modal-container bg-gray-800 w-11/12 mx-auto rounded shadow-lg z-50 overflow-y-auto border border-green-300 max-h-[90vh]">
             <div class="modal-content py-4 text-left px-6">
                 <form @submit.prevent="submit(); checkbox = false; fileInput.value = null" enctype="multipart/form-data">
                     <div class="flex justify-between items-center">
@@ -67,7 +67,7 @@
                             <label for="remember" class="ml-2 text-sm text-white">I agree to input these data</label>
                         </div>
 
-                        <div class="flex w-[15%] gap-4">
+                        <div class="flex w-full sm:w-[40%] lg:w-[20%] gap-4">
                             <button
                                 :type="editMode ? 'button' : 'reset'"
                                 class="flex items-center justify-center text-white bg-red-600 rounded-md text-sm font-semibold w-full px-4 py-2.5 text-center shadow-md transition-colors duration-200 ease-in-out hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300"

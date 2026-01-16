@@ -1,8 +1,8 @@
 <template>
-    <div class="flex items-center my-4 gap-4">
-        <h2 class="w-full text-white text-3xl font-bold border-l-4 border-green-400 pl-4">{{ title }}</h2>
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center my-4 gap-2 sm:gap-4">
+        <h2 class="w-full text-white text-xl sm:text-2xl lg:text-3xl font-bold border-l-4 border-green-400 pl-4">{{ title }}</h2>
 
-        <button class="border border-green-400 flex items-center p-2.5 text-md font-semibold text-white text-center bg-gray-800 hover:bg-gray-900" title="Upload Data" @click="uploadDataModal()">
+        <button class="border border-green-400 flex items-center justify-center p-2.5 text-md font-semibold text-white text-center bg-gray-800 hover:bg-gray-900 w-full sm:w-auto" title="Upload Data" @click="uploadDataModal()">
             <svg fill="currentColor" height="20" width="25" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                 viewBox="0 0 490.955 490.955" xml:space="preserve">
                 <path id="XMLID_448_" d="M445.767,308.42l-53.374-76.49v-20.656v-11.366V97.241c0-6.669-2.604-12.94-7.318-17.645L312.787,7.301
@@ -17,16 +17,17 @@
                 c-2.012-3.866-1.725-8.49,0.783-12.07l61.424-88.064c2.189-3.123,5.769-4.984,9.57-4.984h0.017c3.802,0,7.38,1.861,9.568,4.984
                 l61.427,88.064C412.04,337.28,412.328,341.905,410.316,345.771z"/>
             </svg>
-            <span>Upload</span>
+            <span class="ml-1">Upload</span>
         </button>
                     
         <div class="flex w-full border border-green-400">
-            <button class="flex-shrink-0 inline-flex items-center py-1.5 px-2.5 text-md font-semibold text-white text-center border-r border-green-400 bg-gray-800 hover:bg-gray-900" @click="openCreateModal()" title="Create Data">
+            <button class="flex-shrink-0 inline-flex items-center py-1.5 px-2.5 text-sm sm:text-md font-semibold text-white text-center border-r border-green-400 bg-gray-800 hover:bg-gray-900 whitespace-nowrap" @click="openCreateModal()" title="Create Data">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
                 &nbsp;
-                <span>Create Data</span>
+                <span class="hidden sm:inline">Create Data</span>
+                <span class="sm:hidden">Create</span>
             </button>
             <div class="relative w-full">
                 <input 

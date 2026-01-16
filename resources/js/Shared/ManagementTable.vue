@@ -89,8 +89,8 @@
 
     <Transition>
         <div v-if="showModal" @click="closeModal" class="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50 bg-black transition-all ease-in-out duration-500">
-            <div class="bg-white p-4 rounded shadow">
-                <img :src="`/img/${imgSrc}/${imagePath}`" class="w-full h-auto">
+            <div class="bg-white p-2 rounded shadow max-w-[95%] max-h-[90vh] overflow-auto flex justify-center">
+                <img :src="`/img/${imgSrc}/${imagePath}`" class="max-w-full max-h-[85vh] object-contain">
             </div>
         </div>
     </Transition>

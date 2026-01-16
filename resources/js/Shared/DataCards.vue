@@ -1,5 +1,6 @@
 <template>
-    <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 mt-5 gap-8 ml-12 mb-10 w-[70%]">
+    <div class="w-full xl:w-[70%] xl:ml-12 xl:mr-4 max-w-full">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-5 gap-3 sm:gap-4 lg:gap-6 px-3 sm:px-4 md:px-6 mb-10 w-full">
         <template
             v-for="(ArtLib, index) in filteredArtLibraryData"
             :key="index"
@@ -41,7 +42,7 @@
                 </div>
                 <Transition>
                     <div
-                        class="absolute rounded-xl left-3/4 z-10 w-[300px] h-auto right-0 p-3 bg-gray-700 transition duration-300 ease-in-out"
+                        class="absolute rounded-xl left-3/4 z-10 w-[300px] h-auto right-0 p-3 bg-gray-700 transition duration-300 ease-in-out hidden lg:block"
                         :class="[{'top-32': !infoBellow}, {'top-[-100px]': infoBellow}]"
                         v-show="hiddenDivs[index]"
                         @mouseenter="isInsideHiddenDiv[index]=true; hiddenDivs[index] = true; showHiddenDiv(index)"
@@ -83,15 +84,19 @@
 
             </div>
         </template>
+    </div>
+    <div class="w-full flex justify-center mb-10 mt-5">
         <PulseLoading
-            class="relative 2xl:col-span-4 lg:col-span-2 mb-10 ml-[49%]"
+            class="relative w-full flex items-center justify-center"
             :class="{ 'hidden' : ArtLibrary.current_page === ArtLibrary.last_page }"
         />
+    </div>
     </div>
 </template>
 
 <script setup>
     import { ref } from "vue";
+    import { Link } from '@inertiajs/vue3';
     import PulseLoading from "@/Shared/PulseLoading.vue";
     import DataCardDivText from "@/Shared/DataCardDivText.vue";
     import DataCardImg from "@/Shared/DataCardImg.vue"

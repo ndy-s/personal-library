@@ -1,5 +1,5 @@
 <template>
-    <div class="top-0 w-[25%] mx-5 mt-5">
+    <div class="top-0 hidden xl:block w-full xl:w-[25%] mx-4 xl:mx-5 mt-5">
         <div class="bg-gray-800 rounded-lg p-3">
             <div
                 class="flex w-[100%] py-3 group"

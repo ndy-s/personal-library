@@ -5,7 +5,7 @@
         </template>
 
         <div>
-            <div class="p-5 mt-8 mx-10 rounded-md">
+            <div class="p-3 sm:p-5 mt-8 mx-2 sm:mx-5 lg:mx-10 rounded-md">
                 <ManagementSearchButton
                     title="Art Library Management"
                     :params="params"

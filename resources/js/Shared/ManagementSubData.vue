@@ -1,7 +1,7 @@
 <template>
     <div class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center z-50" v-if="subData">
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-        <div class="modal-container bg-gray-800 w-1/2 mx-auto rounded shadow-lg z-50 overflow-y-auto border border-green-300">
+        <div class="modal-container bg-gray-800 w-11/12 md:w-1/2 mx-auto rounded shadow-lg z-50 overflow-y-auto border border-green-300 max-h-[90vh]">
             <div class="modal-content py-4 text-left px-6">
                 <div class="flex justify-between items-center pb-3">
                     <p class="text-2xl font-bold text-white border-l-4 border-green-400 pl-4">Sub Data Modal</p>
@@ -21,7 +21,7 @@
                     <div class="max-h-[70vh] overflow-y-auto pr-4">
                         <div class="mt-2">
                             <label class="block mb-2 text-sm text-white font-bold">Master Data</label>
-                            <div class="flex justify-evenly gap-4">
+                            <div class="flex flex-col sm:flex-row justify-evenly gap-4">
                                 <input
                                     type="text"
                                     :value="masterData.title_en"
@@ -53,7 +53,7 @@
                         </div>
                         <div v-for="(data, index) in formData" :key="index" class="mt-2">
                             <label v-if="index != 0" class="block mb-2 text-sm text-white">Fields Sub Data {{ ++index }}</label>
-                            <div v-if="index != 0" class="flex justify-evenly gap-4">
+                            <div v-if="index != 0" class="flex flex-col sm:flex-row justify-evenly gap-4">
                                 <input
                                     type="text"
                                     v-model="data.title"
@@ -100,7 +100,7 @@
                     <div class="flex justify-center gap-4">
                         <button
                             type="button"
-                            class="text-white bg-red-600 rounded-md text-sm font-semibold w-[15%] px-4 py-2.5 text-center shadow-md transition-colors duration-200 ease-in-out | hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300"
+                            class="text-white bg-red-600 rounded-md text-sm font-semibold w-full sm:w-auto px-6 py-2.5 text-center shadow-md transition-colors duration-200 ease-in-out | hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300"
                             @click="() => {let idTemp = formData[0]; formData.splice(0); subDataFunc(idTemp)}"
                         >
                             <i class="fas fa-sync-alt"></i>&nbsp; Reset
@@ -108,7 +108,7 @@
 
                         <button
                             type="submit"
-                            class="text-white bg-green-600 rounded-md text-sm font-semibold w-[15%] px-4 py-2.5 text-center shadow-md transition-colors duration-200 ease-in-out | hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300"
+                            class="text-white bg-green-600 rounded-md text-sm font-semibold w-full sm:w-auto px-6 py-2.5 text-center shadow-md transition-colors duration-200 ease-in-out | hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300"
                         >
                             <i class="fas fa-check"></i>&nbsp; Submit
                         </button>

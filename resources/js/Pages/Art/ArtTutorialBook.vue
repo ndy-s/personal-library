@@ -16,19 +16,26 @@
         </template>
 
         <div class="mt-24">
-            <div
-                class="flex"
-            >
-                <h1 class="text-white flex text-[30px] font-bold w-[70%] ml-12 border-l-4 border-green-400 pl-4">
-                    Art Tutorial Book (Total {{ tutorialBookTotal ?? 0 }})
-                    <span
-                        class="text-[30px] flex font-normal text-white"
-                        v-if="!filteredArtLibraryData.length"
-                    >: Data not Found!</span>
-                </h1>
-                <h1 class="w-[25%] mx-5 border-l-4 border-green-400 pl-4">
-                    <span class="text-white text-[30px] font-bold">Recently Updated</span>
-                </h1>
+            <div class="flex flex-col xl:flex-row justify-between items-end xl:items-center px-4 xl:px-0 xl:ml-12 xl:mr-0 mb-5">
+                <!-- Main Header Group (Left) -->
+                <div class="flex justify-between items-center w-full xl:w-[70%] xl:mr-4">
+                    <h1 class="font-bold text-xl lg:text-3xl text-gray-200">
+                        Art Tutorial Book <span class="text-xs lg:text-sm text-gray-400 align-top">(Total {{ localTutorialBookTotal ?? 0 }})</span>
+                    </h1>
+                    <div class="flex items-center gap-3">
+                        <button class="bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md transition-all active:scale-95 border border-white/10" @click="$inertia.visit('/art-tutorial-book-management')">Manage</button>
+                        <Link href="/" class="text-gray-400 hover:text-white transition bg-gray-800/80 p-2 rounded-full hover:bg-gray-700 border border-white/10">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                            </svg>
+                        </Link>
+                    </div>
+                </div>
+
+                <!-- Recent Header (Right - Desktop Only) -->
+                <div class="hidden xl:block w-[25%] border-l-4 border-green-500/50 pl-4">
+                    <span class="text-white text-xl lg:text-3xl font-bold tracking-wide">Recently Updated</span>
+                </div>
             </div>
 
             <div class="flex">
@@ -104,6 +111,15 @@
             title: 'Description'
         }
     ];
+    
+    // Local total count to preserve value across pagination
+    const localTutorialBookTotal = ref(props.tutorialBookTotal);
+    
+    watch(() => props.ArtLibrary, (newData) => {
+        if (newData.current_page === 1) {
+            localTutorialBookTotal.value = props.tutorialBookTotal;
+        }
+    });
 
     let filteredData = [];
     const filteredArtLibraryData = computed(() => {

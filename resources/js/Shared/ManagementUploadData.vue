@@ -1,7 +1,7 @@
 <template>
     <div class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center z-50" v-if="uploadData">
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-        <div class="modal-container bg-gray-800 w-1/2 mx-auto rounded shadow-lg z-50 overflow-y-auto border border-green-300">
+        <div class="modal-container bg-gray-800 w-11/12 md:w-1/2 mx-auto rounded shadow-lg z-50 overflow-y-auto border border-green-300 max-h-[90vh]">
             <div class="modal-content py-4 text-left px-6">
                 <div class="flex justify-between items-center pb-3">
                     <p class="text-2xl font-bold text-white border-l-4 border-green-400 pl-4">Upload Data Modal</p>
@@ -27,7 +27,7 @@
                     <div class="flex justify-center gap-4 mt-4">
                         <button 
                             type="button" 
-                            class="text-white bg-green-600 rounded-md text-sm font-semibold w-[15%] px-4 py-2.5 text-center shadow-md transition-colors duration-200 ease-in-out | hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300" 
+                            class="text-white bg-green-600 rounded-md text-sm font-semibold w-full sm:w-[15%] px-4 py-2.5 text-center shadow-md transition-colors duration-200 ease-in-out | hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300" 
                         >
                             Coming Soon
                         </button>
